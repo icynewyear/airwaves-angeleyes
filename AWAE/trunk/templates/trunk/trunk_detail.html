@@ -1,0 +1,43 @@
+{% extends "trunk/base.html" %}
+{% load col_length %}
+{% block content %}
+<div class="container">
+    <div class="intro">
+        <h2 class="text-center">{{ trunk.name }}</h2>
+        <p class="text-center">eyes close and eyes close and open and eyes closed</p>
+    </div>
+    <div class="buttons">
+      <form>
+        <div class="table-responsive">
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th class="text-center" colspan="2">inner</th>
+                        <th class="text-center" colspan="2">outer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% regroup trunk.eye_keys.all by row as eye_rows %}
+                  {% for row in eye_rows %}
+                    <tr>
+
+                      {% regroup row.list by col as eye_cols %}
+                      {% for col in eye_cols %}
+                        <td class="text-center" colspan="{{ eye_cols|length|col_length:trunk.cols }}">
+                        {% for eye in col.list %}
+                        <input class="form-check-input" type="radio" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ eye.label }}">
+                        {% endfor %}
+                        </td>
+                      {% endfor %}
+                    </tr>
+                  {% endfor %}
+                    <tr>
+                        <td class="text-center" colspan="4"><input class="btn btn-outline-primary" type="reset" value="blink"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </form>
+    </div>
+</div>
+{% endblock %}
