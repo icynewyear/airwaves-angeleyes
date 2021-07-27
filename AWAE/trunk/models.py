@@ -7,25 +7,19 @@ TRUNK_MAX_LENGTH = 100
 
 class Trunk(models.Model):
     name = models.CharField(blank=True, max_length=TRUNK_MAX_LENGTH)
+    sub_title = models.CharField(blank=True, max_length=TRUNK_MAX_LENGTH)
     cols = models.IntegerField(default=4)
-    
+
     def __str__(self):
         return self.name
-
-eye_type=(
-('EYE','Eye Key'),
-('ROW','Row Break'),
-('COL','Column Break'),
-)
-
 
 class EyeKey(OrderedModel):
     name = models.CharField(blank=True, max_length=TRUNK_MAX_LENGTH)
     label = models.CharField(blank=True, max_length=3)
-    type = models.CharField(max_length=3, choices=eye_type, default="EYE")
     trunk = models.ForeignKey(Trunk, on_delete=models.CASCADE, null=True, related_name="eye_keys")
     row = models.IntegerField(default=1)
     col = models.IntegerField(default=1)
+    col_size = models.IntegerField(default=1)
 
     order_with_respect_to = 'trunk'
 
