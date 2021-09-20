@@ -19,7 +19,7 @@ from .views import HomePageView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', HomePageView.as_view(), name='index'),
+    path('', include('trunk.urls')),
     path('trunk/', include('trunk.urls')),
     path('sprout/', include('django.contrib.auth.urls')),
 ]

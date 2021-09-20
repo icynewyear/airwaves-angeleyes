@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import TrunkDetail
+from .views import TrunkDetail, seed_word
 
 urlpatterns = [
     path('<int:pk>', TrunkDetail.as_view(), name='index'),
+    path('seed/word', seed_word, name='seed-word'),
 ]
